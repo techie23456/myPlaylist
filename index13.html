@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Player</title>
+</head>
+
+<body>
+    <div  style="position: absolute; top: 50px; left: 90px;">
+    <input type="text" id="videoInput" value = "1Xi0H2jbidY" placeholder="Enter YouTube Video ID">
+    <button id="loadButton">🛳 Play 🚖</button><br>
+   <br><br>
+    <h1>Vide ID for building AI Agent : [ 1Xi0H2jbidY ] </h1>
+    <br><br>
+    </div>
+
+    <div id="player" style="position: absolute; top: 280px; left:10px;"></div><br>
+   <div id="output" style="position: absolute; top: 10px; right: 90px;"></div>
+
+    <script>
+
+const options = [
+  { id: 1, Vid: "EV168NQvCHc", title: "Redux Tool Kit by Yoshmita" },
+  { id: 2, Vid: "ZP6zJLGdR8s", title: "Redux Tool Kit by Pradeep WSCubeTech" },
+  { id: 3, Vid: "gtHKKZJ9W-Q", title: "useRef Hook by Love Babbar" },
+  { id: 4, Vid: "DnRY5yG67u8", title: "Redux Tool Kit by Love Babbar" },
+  { id: 5, Vid: "s-AaaDIzgQw", title: "useState Hook by Yoshmita" },
+  { id: 6, Vid: "MXs2qqWcGHo", title: "useMemo Hook by Love Babbar" },
+  { id: 7, Vid: "Z7VSgQ_y0dg", title: "useContext Hook by Love Babbar" },
+  { id: 8, Vid: "_NZ5kb68IpA", title: "useEffect Hook by Love Babbar" },
+  { id: 9, Vid: "TlSJVL3dvRM", title: "useReducer Hook by Yoshita" },
+  { id: 10, Vid: "Z4hN0WZbASk", title: "Lifting State by Love Babbar" },
+  { id: 11, Vid: "BBgSB2bLy60", title: "Passing Props as Children & Function" },
+  { id: 12, Vid: "3qGQ4dGA42o", title: "Mastering Next.js by Patel" },
+  { id: 13, Vid: "0HMDcnZGLec", title: "Tailwind CSS by Code Step By Step" },
+  { id: 14, Vid: "sv8aBcmaJlg", title: "Custom Hooks by Yoshita" },
+  { id: 15, Vid: "OjF-OwLOKYE", title: "Conditional Rendering by Love Babbar" },
+  { id: 16, Vid: "VeWdk4D_xYs", title: "Routing in React by Love Babbar" },
+  { id: 17, Vid: "lk4f5QzL41I", title: "TypeScript in React by Yoshita" },
+  { id: 18, Vid: "iPIjRH2rrww", title: "TypeScript useReducer Hook in React" },
+  { id: 19, Vid: "w1IZDCYQBao", title: "TypeScript useContext Hook in React" },
+  { id: 20, Vid: "AR6eQCi_Me4", title: "Next.js by Chai Aur Code" },
+  { id: 21, Vid: "wRbO-yMWTqM", title: "Navbar Next.js by Chai Aur Code" }
+];
+
+ const output = options.map((VidInfo) => {
+    return `<p> <h3> ${VidInfo.title} Video ID [ ${VidInfo.Vid} ]</h2></p>`;
+  }).join("");
+
+ // document.getElementById("output").innerHTML = output;
+
+
+
+        let player;
+
+        // Load YouTube IFrame API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+
+        // Button click
+        document.getElementById("loadButton").addEventListener("click", function () {
+
+            // Read textbox value
+            const vidId = document.getElementById("videoInput").value.trim();
+
+            if (!vidId) {
+                alert("Please enter a YouTube Video ID");
+                return;
+            }
+
+            // Create YouTube player
+            player = new YT.Player('player', {
+                videoId: vidId,
+                playerVars: {
+                    autoplay: 1,
+                    controls: 1
+                },
+                events: {
+                    onReady: () => {
+                        console.log("Player ready");
+                    }
+                }
+            });
+        });
+
+        // Pause when tab becomes hidden
+        document.addEventListener("visibilitychange", () => {
+            if (!player) return;
+
+            if (document.hidden) {
+                pauseVideo();
+                console.log("Video paused");
+            } else {
+
+                   console.log("Video paused");
+                playVideo();
+            }
+        });
+
+        function playVideo() {
+            if (player) {
+                player.playVideo();
+            }
+        }
+
+        function pauseVideo() {
+            if (player) {
+                player.pauseVideo();
+            }
+        }
+
+        function stopVideo() {
+            if (player) {
+                player.stopVideo();
+            }
+        }
+    </script>
+
+</body>
+</html>
